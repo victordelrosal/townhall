@@ -739,10 +739,11 @@ footer{
 
           <div class="newsletter-block" id="notify">
             <span class="label">12:00 AM · Be in the room · Two emails before launch</span>
-            <form class="newsletter" onsubmit="event.preventDefault(); this.querySelector('button').textContent='Wired before launch'; this.querySelector('button').disabled=true;">
+            <form class="newsletter" id="newsletterForm">
               <input type="email" placeholder="your email" aria-label="Email address" required autocomplete="email">
               <button type="submit">Notify me →</button>
             </form>
+            <div id="newsletterMsg" style="font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:8px;min-height:14px"></div>
           </div>
 
         </div>
@@ -822,6 +823,52 @@ footer{
     if (bannerText) bannerText.textContent = 'free seats opening shortly';
     if (bigNum) bigNum.textContent = '100';
   });
+
+  // Newsletter form — actually saves to Firestore /newsletter/{auto-id}
+  var form = document.getElementById('newsletterForm');
+  var msg  = document.getElementById('newsletterMsg');
+  if (form) {
+    form.addEventListener('submit', async function(e){
+      e.preventDefault();
+      var input  = form.querySelector('input[type=email]');
+      var button = form.querySelector('button');
+      var email  = (input.value || '').trim();
+      if (!email || !/.+@.+\..+/.test(email)) {
+        if (msg) msg.textContent = 'Please enter a valid email';
+        return;
+      }
+      button.disabled = true;
+      var orig = button.textContent;
+      button.textContent = 'Saving…';
+      if (msg) msg.textContent = '';
+      try {
+        await db.collection('newsletter').add({
+          email: email,
+          source: 'townhall-landing',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          ua: (navigator.userAgent || '').slice(0, 240),
+          ref: document.referrer || ''
+        });
+        // Fire-and-forget notification ping (lands when notify worker is wired)
+        try {
+          fetch('https://townhall-notify.victordelrosal.workers.dev/newsletter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, source: 'townhall-landing' }),
+            keepalive: true
+          }).catch(function(){});
+        } catch (_) {}
+        button.textContent = 'Wired before launch';
+        input.value = '';
+        if (msg) msg.textContent = 'Saved · we will be in touch';
+      } catch (err) {
+        console.error('newsletter signup failed:', err);
+        button.disabled = false;
+        button.textContent = orig;
+        if (msg) msg.textContent = 'Could not save · please try again';
+      }
+    });
+  }
 })();
 
 // Sticky mini-buy after hero scrolls off
