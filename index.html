@@ -146,11 +146,8 @@ section{padding:110px 0;border-top:1px solid var(--rule);position:relative;z-ind
 }
 .cover img{display:block;width:100%;height:100%;object-fit:contain}
 .cover .spine{display:none}
-.cover-stage::after{
-  content:"";display:block;height:24px;max-width:380px;margin:-10px auto 0;
-  background:radial-gradient(50% 100% at 50% 0%, rgba(0,0,0,.30), transparent 70%);
-  filter:blur(6px);
-}
+/* Old CSS drop-shadow ellipse removed — the cover PNG now carries its
+   own native contact shadow inside the diagonal alpha mask. */
 
 /* HERO TEXT */
 .hero-text .seal{
