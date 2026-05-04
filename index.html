@@ -130,19 +130,30 @@ section{padding:110px 0;border-top:1px solid var(--rule);position:relative;z-ind
 .cover-stage{position:relative;perspective:1400px}
 .cover{
   width:100%;aspect-ratio:2/3;max-width:430px;margin:0 auto;
-  transform:rotate(-2.2deg) translateY(0);
+  transform:rotate(-2.2deg) translateY(0) scale(1);
   transform-style:preserve-3d;
-  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  transform-origin:50% 60%;
+  transition:transform 1.4s cubic-bezier(.22,.8,.36,1);
   position:relative;background:transparent;
   animation:coverFloat 7.5s ease-in-out infinite;
   will-change:transform;
 }
+/* Idle: gentle float */
 @keyframes coverFloat{
-  0%,100%{transform:rotate(-2.2deg) translateY(0)}
-  50%   {transform:rotate(-1.7deg) translateY(-6px)}
+  0%,100%{transform:rotate(-2.2deg) translateY(0) scale(1)}
+  50%   {transform:rotate(-1.7deg) translateY(-6px) scale(1)}
+}
+/* Hover: organically expand (no jolt) and breathe on sustained hover */
+.cover-stage:hover .cover{
+  animation:coverBreathe 5.5s ease-in-out infinite;
+}
+@keyframes coverBreathe{
+  0%   {transform:rotate(-1.8deg) translateY(-4px) scale(1.045)}
+  50%  {transform:rotate(-1.6deg) translateY(-8px) scale(1.062)}
+  100% {transform:rotate(-1.8deg) translateY(-4px) scale(1.045)}
 }
 @media(prefers-reduced-motion:reduce){
-  .cover{animation:none;transform:rotate(-2.2deg);transition:none}
+  .cover,.cover-stage:hover .cover{animation:none;transform:rotate(-2.2deg);transition:none}
 }
 .cover img{display:block;width:100%;height:100%;object-fit:contain}
 .cover .spine{display:none}
@@ -933,42 +944,9 @@ footer{
   }
 })();
 
-// Cover parallax tilt: subtle rotateX/rotateY follow cursor, gentle ambient float on idle.
-(function(){
-  var stage = document.querySelector('.cover-stage');
-  var card  = stage && stage.querySelector('.cover');
-  if(!stage || !card) return;
-  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-  var rect = null, raf = 0;
-
-  function refreshRect(){ rect = stage.getBoundingClientRect(); }
-
-  function update(e){
-    if(!rect) refreshRect();
-    var x = (e.clientX - rect.left) / rect.width;   // 0..1
-    var y = (e.clientY - rect.top)  / rect.height;  // 0..1
-    var ry = (x - 0.5) * 8;     // -4 .. +4 deg around vertical
-    var rx = (0.5 - y) * 5;     // -2.5 .. +2.5 deg around horizontal
-    if(raf) cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(function(){
-      card.style.animation = 'none';
-      card.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) rotate(-2deg) translateY(-4px)';
-    });
-  }
-
-  function reset(){
-    rect = null;
-    if(raf) cancelAnimationFrame(raf);
-    card.style.transform = '';
-    card.style.animation = '';
-  }
-
-  stage.addEventListener('mousemove', update, {passive:true});
-  stage.addEventListener('mouseleave', reset);
-  window.addEventListener('scroll', function(){ rect = null; }, {passive:true});
-  window.addEventListener('resize', function(){ rect = null; });
-})();
+// Cover hover behaviour is now pure CSS (organic scale-up + breathing
+// keyframes on .cover-stage:hover). The earlier mousemove parallax-tilt
+// felt like a "surprise-poke"; removed in favour of the CSS approach.
 </script>
 
 </body>
