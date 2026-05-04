@@ -17,6 +17,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..600;1,6..72,300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
 
 <style>
 :root{
@@ -257,6 +259,58 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   color:var(--ink-soft);margin:24px 0 0;text-align:center;opacity:.72;
 }
 
+/* Alpha banner — top of page, sticky under topbar */
+.alpha-banner{
+  background:var(--ink);color:var(--paper);
+  border-bottom:1px solid var(--oxblood-deep);
+  padding:10px 16px;text-align:center;
+  font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  position:relative;z-index:40;
+}
+.alpha-banner .pulse{
+  display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--gold);margin-right:10px;vertical-align:middle;
+  animation:alphaPulse 2.4s ease-in-out infinite;
+  box-shadow:0 0 0 0 rgba(244,197,107,0.5);
+}
+@keyframes alphaPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(244,197,107,0.55)}
+  50%   {box-shadow:0 0 0 8px rgba(244,197,107,0)}
+}
+.alpha-banner a{color:var(--gold-leaf);text-decoration:none;border-bottom:1px solid rgba(200,162,90,0.4);padding-bottom:1px}
+.alpha-banner a:hover{color:var(--paper);border-color:var(--paper)}
+.alpha-banner strong{color:var(--gold);font-weight:600}
+.alpha-banner.full strong{color:var(--oxblood);}
+.alpha-banner.full .pulse{background:var(--oxblood);box-shadow:0 0 0 0 rgba(107,29,44,0.6)}
+
+/* Alpha CTA card in hero */
+.alpha-cta{
+  margin:18px 0 26px;padding:18px 22px;
+  background:var(--paper-deep);border:1px solid var(--rule);border-radius:8px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  font-family:var(--mono);
+}
+.alpha-cta .seats{
+  font-family:var(--serif);font-size:34px;font-weight:300;font-variation-settings:"opsz" 144;
+  color:var(--oxblood);line-height:1;letter-spacing:-.01em;
+}
+.alpha-cta .seats em{font-style:italic;color:var(--gold)}
+.alpha-cta .lbl{
+  font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft);
+  display:block;margin-top:4px;
+}
+.alpha-cta .copy{flex:1;min-width:200px;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink);line-height:1.5}
+.alpha-cta .copy strong{font-style:normal;color:var(--oxblood);font-weight:500}
+.alpha-cta a.cta{
+  background:var(--ink);color:var(--paper);border:1px solid var(--ink);
+  padding:14px 22px;border-radius:999px;text-decoration:none;
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+  display:inline-flex;align-items:center;gap:10px;
+  transition:background .2s, transform .2s;
+}
+.alpha-cta a.cta:hover{background:var(--oxblood-deep);transform:translateY(-1px)}
+.alpha-cta a.cta.disabled{background:var(--paper-shadow);border-color:var(--paper-shadow);color:var(--ink-soft);pointer-events:none}
+
 /* ABOUT */
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
 @media(max-width:900px){.about-grid{grid-template-columns:1fr;gap:36px}}
@@ -424,6 +478,13 @@ footer{
 </head>
 <body>
 
+<div class="alpha-banner" id="alphaBanner">
+  <span class="pulse"></span>
+  <strong>Alpha edition</strong> · free for the first 100 readers ·
+  <span id="seatsText">checking the door…</span> ·
+  <a href="https://victordelrosal.com/townhall-reader/" id="alphaCtaInline">Take a seat →</a>
+</div>
+
 <header class="topbar">
   <div class="topbar-inner">
     <a href="#" class="brand"><em>Townhall</em></a>
@@ -431,11 +492,11 @@ footer{
       <a href="#book">The Program</a>
       <a href="#manuscript">The Voices</a>
       <a href="#author">The Author</a>
-      <a href="#notify">Take a seat</a>
+      <a href="https://victordelrosal.com/townhall-reader/">Take a seat</a>
     </nav>
     <div class="mini-buy" id="miniBuy">
       <div class="mini-thumb" aria-hidden="true"><img src="cover-final.png" alt=""></div>
-      <a class="btn btn-primary" href="#notify">Take a seat <span class="arrow">→</span></a>
+      <a class="btn btn-primary" href="https://victordelrosal.com/townhall-reader/">Take a seat <span class="arrow">→</span></a>
     </div>
   </div>
 </header>
@@ -462,9 +523,22 @@ footer{
         <p class="promise" style="font-style:italic; margin-top:-0.4em; margin-bottom:1.6em; color:var(--paper-shadow,#cdbb96);">Who Do We Get to Be in the Age of AI</p>
         <p class="promise"><em>The town hall was meant to last ninety minutes. It ran for nearly six.</em> Twelve voices on stage. The questions you wanted to ask about AI, were afraid to ask, or could not yet say. Take a seat.</p>
 
+        <div class="alpha-cta" id="alphaCtaCard">
+          <div>
+            <div class="seats"><span id="seatsLeftBig">--</span><em> / 100</em></div>
+            <span class="lbl">Free seats remaining</span>
+          </div>
+          <div class="copy">
+            <strong>This is the alpha.</strong> The book is free for the first 100 readers. The only favour we ask in return is an honest review when you finish.
+          </div>
+          <a class="cta" id="alphaCtaBtn" href="https://victordelrosal.com/townhall-reader/">
+            <span id="alphaCtaLabel">Take my seat</span> <span>→</span>
+          </a>
+        </div>
+
         <div class="ctas" id="notify-cta">
-          <a class="btn btn-primary" href="#notify">Take a seat <span class="arrow">→</span></a>
           <a class="btn btn-ghost" href="#excerpt">Read an excerpt</a>
+          <a class="btn btn-ghost" href="#notify">Notify me on full release</a>
         </div>
 
         <div class="retailers">
@@ -672,6 +746,55 @@ footer{
 </footer>
 
 <script>
+// Live alpha-seat counter — read /config/seats from Firestore (no auth needed)
+(function(){
+  if (typeof firebase === 'undefined') return;
+  var firebaseConfig = {
+    apiKey: "AIzaSyBRb-YNmqx6ZnuqmCDK9f2nXEM0XXmDfg8",
+    authDomain: "townhall-reader-2026.firebaseapp.com",
+    projectId: "townhall-reader-2026",
+    storageBucket: "townhall-reader-2026.firebasestorage.app",
+    messagingSenderId: "745639983888",
+    appId: "1:745639983888:web:75ea26009fc4adddca0395"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+  var TOTAL = 100;
+  var bannerText = document.getElementById('seatsText');
+  var bigNum = document.getElementById('seatsLeftBig');
+  var ctaBtn = document.getElementById('alphaCtaBtn');
+  var ctaLabel = document.getElementById('alphaCtaLabel');
+  var inlineCta = document.getElementById('alphaCtaInline');
+  var banner = document.getElementById('alphaBanner');
+
+  function paint(taken){
+    var left = Math.max(0, TOTAL - taken);
+    var full = left <= 0;
+    if (bigNum) bigNum.textContent = String(left);
+    if (bannerText) {
+      bannerText.innerHTML = full
+        ? '<strong>all 100 seats taken</strong>'
+        : (left === 1 ? 'only <strong>1 seat</strong> remaining' : '<strong>' + left + '</strong> of 100 seats remaining');
+    }
+    if (full) {
+      banner && banner.classList.add('full');
+      if (ctaBtn) { ctaBtn.classList.add('disabled'); ctaBtn.removeAttribute('href'); }
+      if (ctaLabel) ctaLabel.textContent = 'Room is full';
+      if (inlineCta) { inlineCta.textContent = 'Waitlist for full release →'; inlineCta.setAttribute('href', '#notify'); }
+    }
+  }
+
+  // Live subscription so the page updates in real time as seats fill.
+  db.collection('config').doc('seats').onSnapshot(function(snap){
+    if (snap.exists) paint(snap.data().taken || 0);
+    else paint(0);
+  }, function(err){
+    console.warn('seat counter:', err);
+    if (bannerText) bannerText.textContent = 'free seats opening shortly';
+    if (bigNum) bigNum.textContent = '100';
+  });
+})();
+
 // Sticky mini-buy after hero scrolls off
 (function(){
   var mini = document.getElementById('miniBuy');
