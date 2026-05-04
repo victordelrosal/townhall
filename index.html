@@ -192,17 +192,20 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .pullquote .open,.pullquote .close{color:var(--oxblood);font-size:1.4em;line-height:0;vertical-align:-.15em}
 .pullquote .open{margin-right:.05em}.pullquote .close{margin-left:.05em}
 .attribution{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
-/* Cycling reviews carousel — one big card at a time */
-.reviews{position:relative;margin:64px auto 0;max-width:920px;padding:0 70px;min-height:300px}
-@media(max-width:760px){.reviews{padding:0 48px;min-height:360px}}
-.review-stage{position:relative;min-height:260px}
+/* Cycling reviews carousel — one big card at a time. CSS-grid stack:
+   all slides occupy the same grid cell, so the container auto-sizes
+   to the tallest slide and the dots/counter never overlap. */
+.reviews{position:relative;margin:64px auto 0;max-width:920px;padding:0 70px}
+@media(max-width:760px){.reviews{padding:0 48px}}
+.review-stage{position:relative;display:grid;grid-template-columns:1fr;grid-template-rows:1fr}
 .review{
-  position:absolute;inset:0;opacity:0;visibility:hidden;
+  grid-area:1/1/2/2;opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .7s ease, transform .7s ease;
   transform:translateY(8px);
   display:flex;flex-direction:column;align-items:center;text-align:center;
-  padding:36px 28px;
+  padding:36px 28px 48px;
 }
+.review.active{pointer-events:auto}
 .review.active{opacity:1;visibility:visible;transform:translateY(0)}
 .review .stars{
   font-family:var(--mono);font-size:26px;letter-spacing:6px;
@@ -238,7 +241,8 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .r-nav svg{width:18px;height:18px;display:block}
 
 .r-dots{
-  display:flex;justify-content:center;gap:8px;margin-top:22px;flex-wrap:wrap;
+  display:flex;justify-content:center;gap:8px;margin-top:34px;flex-wrap:wrap;
+  position:relative;z-index:2;
 }
 .r-dot{
   width:8px;height:8px;border-radius:50%;
