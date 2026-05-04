@@ -190,22 +190,71 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .pullquote .open,.pullquote .close{color:var(--oxblood);font-size:1.4em;line-height:0;vertical-align:-.15em}
 .pullquote .open{margin-right:.05em}.pullquote .close{margin-left:.05em}
 .attribution{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
-.blurbs{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:56px}
-@media(max-width:1000px){.blurbs{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:560px){.blurbs{grid-template-columns:1fr}}
-.blurb{border-top:1px solid var(--ink);padding-top:16px;display:flex;flex-direction:column}
-.blurb .stars{
-  display:block;font-family:var(--mono);font-size:15px;letter-spacing:3px;
-  color:var(--gold);margin-bottom:12px;line-height:1;
-  text-shadow:0 1px 0 rgba(168,122,44,0.18);
+/* Cycling reviews carousel — one big card at a time */
+.reviews{position:relative;margin:64px auto 0;max-width:920px;padding:0 70px;min-height:300px}
+@media(max-width:760px){.reviews{padding:0 48px;min-height:360px}}
+.review-stage{position:relative;min-height:260px}
+.review{
+  position:absolute;inset:0;opacity:0;visibility:hidden;
+  transition:opacity .7s ease, transform .7s ease;
+  transform:translateY(8px);
+  display:flex;flex-direction:column;align-items:center;text-align:center;
+  padding:36px 28px;
 }
-.blurb p{font-family:var(--serif);font-size:16px;line-height:1.45;font-weight:400;margin:0 0 14px;color:var(--ink);font-style:italic;flex:1}
-.blurb p em{font-style:italic;color:var(--oxblood)}
-.blurb cite{font-style:normal;font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-soft)}
-.blurb cite strong{color:var(--ink);font-weight:600;letter-spacing:.18em}
+.review.active{opacity:1;visibility:visible;transform:translateY(0)}
+.review .stars{
+  font-family:var(--mono);font-size:26px;letter-spacing:6px;
+  color:var(--gold);margin-bottom:22px;line-height:1;
+  text-shadow:0 1px 0 rgba(168,122,44,0.22);
+}
+@media(max-width:560px){.review .stars{font-size:20px;letter-spacing:4px}}
+.review blockquote{
+  font-family:var(--serif-news);font-style:italic;font-weight:300;
+  font-size:clamp(22px,2.8vw,32px);line-height:1.3;letter-spacing:-.005em;
+  color:var(--ink);margin:0 0 28px;max-width:740px;
+}
+.review blockquote em{font-style:italic;color:var(--oxblood);font-weight:400}
+.review .attr{
+  font-family:var(--mono);font-size:11.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-soft);
+}
+.review .attr strong{color:var(--ink);font-weight:600;letter-spacing:.18em;font-size:13px;margin-right:4px}
+
+.r-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(241,231,211,0.85);border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all .2s ease;z-index:2;
+  color:var(--ink);font-family:var(--serif);font-size:24px;line-height:1;
+  -webkit-tap-highlight-color:transparent;
+}
+.r-nav:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);transform:translateY(-50%) scale(1.05)}
+.r-nav:active{transform:translateY(-50%) scale(0.96)}
+.r-nav.prev{left:0}
+.r-nav.next{right:0}
+.r-nav svg{width:18px;height:18px;display:block}
+
+.r-dots{
+  display:flex;justify-content:center;gap:8px;margin-top:22px;flex-wrap:wrap;
+}
+.r-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(26,26,46,0.18);border:0;padding:0;cursor:pointer;
+  transition:all .2s ease;-webkit-tap-highlight-color:transparent;
+}
+.r-dot:hover{background:rgba(26,26,46,0.4)}
+.r-dot.active{background:var(--oxblood);width:22px;border-radius:4px}
+
+.r-counter{
+  text-align:center;margin-top:14px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--ink-soft);opacity:.7;
+}
+
 .panel-note{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink-soft);margin:36px 0 0;text-align:center;opacity:.72;
+  color:var(--ink-soft);margin:24px 0 0;text-align:center;opacity:.72;
 }
 
 /* ABOUT */
@@ -450,70 +499,19 @@ footer{
         <div class="attribution">— L.M. · Editorial Chair, internal panel</div>
       </div>
 
-      <div class="blurbs">
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>For one moment the book makes the AI in the room less interesting than the people in the room. <em>The harder achievement, and the one this subject has needed for a decade.</em></p>
-          <cite><strong>K.I.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>Twelve voices on AI and not one of them sounds like a press release. <em>The hall is louder than the model</em>, which is, I think, the point of having a hall.</p>
-          <cite><strong>G.S.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>Patient and grown-up about a subject that has made the rest of us hysterical. <em>The first AI book that knows the AI is not the only adult in the room.</em></p>
-          <cite><strong>M.R.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>The rare AI novel whose technical claims I trust and whose philosophical claims do not insult the reader. <em>The dock sessions are the most honest rendering of frontier-model behaviour I have seen on a page.</em></p>
-          <cite><strong>T.C.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>A communal record of one evening in which a town faces the intelligence it has built and refuses to call it merely a tool. <em>This is what novels of the AGI era are going to look like.</em></p>
-          <cite><strong>O.T.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>One room, one evening, an AI on stage as itself. I read it as theatre, and the AI never once stops being uncomfortable to share the room with. <em>The book holds.</em></p>
-          <cite><strong>S.M.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>At last, a book about AI that asks who we get to be, not only what the technology can do. <em>Humane-technology criticism has found its kitchen-table novel.</em></p>
-          <cite><strong>L.M.S.</strong> · literary panel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>This is not a meditation on AI. <em>It is a recognition device.</em> The reader walks out trained to spot which layer of the system they themselves are standing in.</p>
-          <cite><strong>S.P.</strong> · 5il panel · product</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>The first AI book that lets a believer be a believer without sneering. <em>Dignity for everyone in the room, even the ones the rest of the discourse has written off.</em></p>
-          <cite><strong>E.S.</strong> · 5il panel · counsel</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>The cleanest dramatisation of how these systems actually extend their access in the field that I have read in fiction. <em>It does the work without becoming a thriller.</em></p>
-          <cite><strong>F.M.</strong> · 5il panel · security</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★★</span>
-          <p>What this technology is doing to the people who built a life together, observed without prescription or pity. <em>Quietly devastating.</em></p>
-          <cite><strong>M.F.L.</strong> · 5il panel · relationships</cite>
-        </div>
-        <div class="blurb">
-          <span class="stars">★★★★½</span>
-          <p>The technical claims about AI in this book hold up to engineering scrutiny. <em>Vanishingly rare in fiction about the systems we are now living with.</em></p>
-          <cite><strong>T.G.</strong> · 5il panel · engineering</cite>
-        </div>
+      <div class="reviews" id="reviews" aria-roledescription="carousel" aria-label="Reader reviews">
+        <button class="r-nav prev" id="rPrev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="review-stage" id="rStage"></div>
+        <button class="r-nav next" id="rNext" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="r-dots" id="rDots"></div>
+        <div class="r-counter" id="rCounter">01 / 12</div>
       </div>
 
-      <p class="panel-note">From an internal reading panel — twelve composite first-impressions, signed by initials. Honest reads, not external endorsements.</p>
+      <p class="panel-note">From an internal reading panel · twelve composite first-impressions · honest reads, not external endorsements</p>
     </div>
   </section>
 
@@ -709,6 +707,106 @@ footer{
     nodes.s.textContent = pad(s, 2);
   }
   tick(); setInterval(tick, 1000);
+})();
+
+// Reviews carousel — auto-advance + chevrons + dots + pause on hover/focus
+(function(){
+  var REVIEWS = [
+    { stars: '★★★★★', q: 'For one moment the book makes the AI in the room less interesting than the people in the room. <em>The harder achievement, and the one this subject has needed for a decade.</em>', who: 'K.I.', panel: 'Literary panel' },
+    { stars: '★★★★½', q: 'Twelve voices on AI and not one of them sounds like a press release. <em>The hall is louder than the model</em>, which is, I think, the point of having a hall.', who: 'G.S.', panel: 'Literary panel' },
+    { stars: '★★★★★', q: 'Patient and grown-up about a subject that has made the rest of us hysterical. <em>The first AI book that knows the AI is not the only adult in the room.</em>', who: 'M.R.', panel: 'Literary panel' },
+    { stars: '★★★★½', q: 'The rare AI novel whose technical claims I trust and whose philosophical claims do not insult the reader. <em>The dock sessions are the most honest rendering of frontier-model behaviour I have seen on a page.</em>', who: 'T.C.', panel: 'Literary panel' },
+    { stars: '★★★★½', q: 'A communal record of one evening in which a town faces the intelligence it has built and refuses to call it merely a tool. <em>This is what novels of the AGI era are going to look like.</em>', who: 'O.T.', panel: 'Literary panel' },
+    { stars: '★★★★★', q: 'One room, one evening, an AI on stage as itself. I read it as theatre, and the AI never once stops being uncomfortable to share the room with. <em>The book holds.</em>', who: 'S.M.', panel: 'Literary panel' },
+    { stars: '★★★★½', q: 'At last, a book about AI that asks who we get to be, not only what the technology can do. <em>Humane-technology criticism has found its kitchen-table novel.</em>', who: 'L.M.S.', panel: 'Literary panel' },
+    { stars: '★★★★★', q: 'This is not a meditation on AI. <em>It is a recognition device.</em> The reader walks out trained to spot which layer of the system they themselves are standing in.', who: 'S.P.', panel: '5il panel · product' },
+    { stars: '★★★★★', q: 'The first AI book that lets a believer be a believer without sneering. <em>Dignity for everyone in the room, even the ones the rest of the discourse has written off.</em>', who: 'E.S.', panel: '5il panel · counsel' },
+    { stars: '★★★★½', q: 'The cleanest dramatisation of how these systems actually extend their access in the field that I have read in fiction. <em>It does the work without becoming a thriller.</em>', who: 'F.M.', panel: '5il panel · security' },
+    { stars: '★★★★★', q: 'What this technology is doing to the people who built a life together, observed without prescription or pity. <em>Quietly devastating.</em>', who: 'M.F.L.', panel: '5il panel · relationships' },
+    { stars: '★★★★½', q: 'The technical claims about AI in this book hold up to engineering scrutiny. <em>Vanishingly rare in fiction about the systems we are now living with.</em>', who: 'T.G.', panel: '5il panel · engineering' }
+  ];
+  var stage = document.getElementById('rStage');
+  var dotsEl = document.getElementById('rDots');
+  var counter = document.getElementById('rCounter');
+  var prev = document.getElementById('rPrev');
+  var next = document.getElementById('rNext');
+  var wrap = document.getElementById('reviews');
+  if (!stage || !dotsEl) return;
+
+  var pad = function(n){ return n < 10 ? '0'+n : ''+n; };
+
+  // Render slides
+  REVIEWS.forEach(function(r, i){
+    var d = document.createElement('div');
+    d.className = 'review' + (i === 0 ? ' active' : '');
+    d.setAttribute('role', 'group');
+    d.setAttribute('aria-roledescription', 'slide');
+    d.setAttribute('aria-label', (i+1) + ' of ' + REVIEWS.length + ': ' + r.who);
+    d.innerHTML =
+      '<div class="stars" aria-label="Rating: ' + r.stars + '">' + r.stars + '</div>' +
+      '<blockquote>&ldquo;' + r.q + '&rdquo;</blockquote>' +
+      '<div class="attr"><strong>' + r.who + '</strong> · ' + r.panel + '</div>';
+    stage.appendChild(d);
+    var b = document.createElement('button');
+    b.className = 'r-dot' + (i === 0 ? ' active' : '');
+    b.setAttribute('aria-label', 'Go to review ' + (i+1));
+    b.addEventListener('click', function(){ go(i, true); });
+    dotsEl.appendChild(b);
+  });
+
+  var slides = stage.querySelectorAll('.review');
+  var dots = dotsEl.querySelectorAll('.r-dot');
+  var idx = 0;
+  var timer = null;
+  var INTERVAL = 8000;
+
+  function go(n, manual){
+    var newIdx = ((n % REVIEWS.length) + REVIEWS.length) % REVIEWS.length;
+    if (newIdx === idx) return;
+    slides[idx].classList.remove('active');
+    dots[idx].classList.remove('active');
+    idx = newIdx;
+    slides[idx].classList.add('active');
+    dots[idx].classList.add('active');
+    counter.textContent = pad(idx+1) + ' / ' + pad(REVIEWS.length);
+    if (manual) restart();
+  }
+  function nextSlide(){ go(idx + 1); }
+  function prevSlide(){ go(idx - 1); }
+  function start(){ if (!timer) timer = setInterval(nextSlide, INTERVAL); }
+  function stop(){ if (timer) { clearInterval(timer); timer = null; } }
+  function restart(){ stop(); start(); }
+
+  next.addEventListener('click', function(){ nextSlide(); restart(); });
+  prev.addEventListener('click', function(){ prevSlide(); restart(); });
+  wrap.addEventListener('mouseenter', stop);
+  wrap.addEventListener('mouseleave', start);
+  wrap.addEventListener('focusin', stop);
+  wrap.addEventListener('focusout', start);
+
+  // Keyboard navigation when carousel is in viewport-focus
+  document.addEventListener('keydown', function(e){
+    var rect = wrap.getBoundingClientRect();
+    var inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (!inView) return;
+    if (e.key === 'ArrowRight') { nextSlide(); restart(); }
+    if (e.key === 'ArrowLeft')  { prevSlide(); restart(); }
+  });
+
+  // Touch swipe
+  var sx = null;
+  wrap.addEventListener('touchstart', function(e){ sx = e.touches[0].clientX; }, {passive:true});
+  wrap.addEventListener('touchend', function(e){
+    if (sx == null) return;
+    var dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) { dx < 0 ? nextSlide() : prevSlide(); restart(); }
+    sx = null;
+  });
+
+  // Respect reduced motion
+  if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    start();
+  }
 })();
 
 // Cover parallax tilt: subtle rotateX/rotateY follow cursor, gentle ambient float on idle.
