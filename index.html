@@ -672,33 +672,6 @@ footer{
     </div>
   </section>
 
-  <!-- ADVANCE PRAISE -->
-  <section id="manuscript">
-    <div class="wrap">
-      <div class="pullquote">
-        <div class="eyebrow">8:00 PM · From the internal reading panel</div>
-        <blockquote>
-          <span class="open">&ldquo;</span>You will not finish this book and feel calm about AI. You will finish it and feel ready.<span class="close">&rdquo;</span>
-        </blockquote>
-        <div class="attribution">— L.M. · Editorial Chair, internal panel</div>
-      </div>
-
-      <div class="reviews" id="reviews" aria-roledescription="carousel" aria-label="Reader reviews">
-        <button class="r-nav prev" id="rPrev" aria-label="Previous review">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <div class="review-stage" id="rStage"></div>
-        <button class="r-nav next" id="rNext" aria-label="Next review">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-        <div class="r-dots" id="rDots"></div>
-        <div class="r-counter" id="rCounter">01 / 12</div>
-      </div>
-
-      <p class="panel-note">From an internal reading panel · twelve composite first-impressions · honest reads, not external endorsements</p>
-    </div>
-  </section>
-
   <!-- ABOUT THE BOOK -->
   <section id="book">
     <div class="wrap about-grid">
@@ -776,6 +749,33 @@ footer{
     </div>
   </section>
 
+  <!-- ADVANCE PRAISE -->
+  <section id="manuscript">
+    <div class="wrap">
+      <div class="pullquote">
+        <div class="eyebrow">10:00 PM · From the internal reading panel</div>
+        <blockquote>
+          <span class="open">&ldquo;</span>You will not finish this book and feel calm about AI. You will finish it and feel ready.<span class="close">&rdquo;</span>
+        </blockquote>
+        <div class="attribution">— L.M. · Editorial Chair, internal panel</div>
+      </div>
+
+      <div class="reviews" id="reviews" aria-roledescription="carousel" aria-label="Reader reviews">
+        <button class="r-nav prev" id="rPrev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="review-stage" id="rStage"></div>
+        <button class="r-nav next" id="rNext" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="r-dots" id="rDots"></div>
+        <div class="r-counter" id="rCounter">01 / 05</div>
+      </div>
+
+      <p class="panel-note">From an internal reading panel · five composite first-impressions · honest reads, not external endorsements</p>
+    </div>
+  </section>
+
   <!-- EXCERPT -->
   <section id="excerpt">
     <div class="wrap">
@@ -840,6 +840,18 @@ footer{
     </div>
   </section>
 
+  <!-- FINAL CTA -->
+  <section class="final-cta" aria-label="Take a seat">
+    <div class="wrap" style="text-align:center;max-width:760px">
+      <div class="eyebrow" style="justify-content:center">12:45 AM · The room empties</div>
+      <h2 style="font-family:var(--serif);font-weight:400;font-size:clamp(36px,4vw,56px);line-height:1.04;letter-spacing:-.015em;margin:14px 0 14px;color:var(--ink)">Take a <em style="font-style:italic;color:var(--oxblood);font-weight:400">seat</em>.</h2>
+      <p style="font-family:var(--serif-news);font-weight:400;font-size:clamp(18px,1.6vw,21px);line-height:1.5;color:var(--ink);max-width:54ch;margin:0 auto 28px">The book is free for the first 100 readers. The only favour we ask in return is an honest review when you finish.</p>
+      <a class="cta" id="alphaCtaBtnFooter" href="https://victordelrosal.com/townhall-reader/" style="display:inline-flex;align-items:center;gap:10px;background:var(--oxblood);color:var(--paper);font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:600;padding:18px 32px;border:1px solid var(--oxblood);border-radius:2px;text-decoration:none;transition:transform .2s,background .2s">
+        <span id="alphaCtaLabelFooter">Take my seat</span> <span>→</span>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -876,6 +888,8 @@ footer{
   var bigNum = document.getElementById('seatsLeftBig');
   var ctaBtn = document.getElementById('alphaCtaBtn');
   var ctaLabel = document.getElementById('alphaCtaLabel');
+  var ctaBtnFooter = document.getElementById('alphaCtaBtnFooter');
+  var ctaLabelFooter = document.getElementById('alphaCtaLabelFooter');
   var inlineCta = document.getElementById('alphaCtaInline');
   var banner = document.getElementById('alphaBanner');
 
@@ -892,6 +906,8 @@ footer{
       banner && banner.classList.add('full');
       if (ctaBtn) { ctaBtn.classList.add('disabled'); ctaBtn.removeAttribute('href'); }
       if (ctaLabel) ctaLabel.textContent = 'Room is full';
+      if (ctaBtnFooter) { ctaBtnFooter.style.background = 'var(--paper-shadow)'; ctaBtnFooter.style.borderColor = 'var(--paper-shadow)'; ctaBtnFooter.style.color = 'var(--ink-soft)'; ctaBtnFooter.style.pointerEvents = 'none'; ctaBtnFooter.removeAttribute('href'); }
+      if (ctaLabelFooter) ctaLabelFooter.textContent = 'Room is full';
       if (inlineCta) { inlineCta.textContent = 'Waitlist for full release →'; inlineCta.setAttribute('href', '#notify'); }
     }
   }
@@ -996,8 +1012,8 @@ footer{
     { stars: '★★★★★', q: 'Patient and grown-up about a subject that has made the rest of us hysterical. <em>The first AI book that knows the AI is not the only adult in the room.</em>', who: 'M.R.', panel: 'Literary panel' },
     { stars: '★★★★½', q: 'The rare AI novel whose technical claims I trust and whose philosophical claims do not insult the reader. <em>The dock sessions are the most honest rendering of frontier-model behaviour I have seen on a page.</em>', who: 'T.C.', panel: 'Literary panel' },
     { stars: '★★★★½', q: 'A communal record of one evening in which a town faces the intelligence it has built and refuses to call it merely a tool. <em>This is what novels of the AGI era are going to look like.</em>', who: 'O.T.', panel: 'Literary panel' },
-    { stars: '★★★★★', q: 'This is not a meditation on AI. <em>It is a recognition device.</em> The reader walks out trained to spot which layer of the system they themselves are standing in.', who: 'S.P.', panel: '5il panel · product' },
-    { stars: '★★★★★', q: 'What this technology is doing to the people who built a life together, observed without prescription or pity. <em>Quietly devastating.</em>', who: 'M.F.L.', panel: '5il panel · relationships' }
+    { stars: '★★★★★', q: 'This is not a meditation on AI. <em>It is a recognition device.</em> The reader walks out trained to spot which layer of the system they themselves are standing in.', who: 'S.P.', panel: 'Literary panel' },
+    { stars: '★★★★★', q: 'What this technology is doing to the people who built a life together, observed without prescription or pity. <em>Quietly devastating.</em>', who: 'M.F.L.', panel: 'Literary panel' }
   ];
   var stage = document.getElementById('rStage');
   var dotsEl = document.getElementById('rDots');
