@@ -174,10 +174,11 @@ h1.title{
 h1.title em{font-style:italic;color:var(--oxblood);font-weight:400}
 h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .promise{
-  font-family:var(--serif-news);font-weight:300;font-style:italic;
-  font-size:clamp(20px,1.8vw,24px);line-height:1.45;color:var(--ink-soft);
+  font-family:var(--serif-news);font-weight:400;font-style:normal;
+  font-size:clamp(19px,1.75vw,23px);line-height:1.5;color:var(--ink);
   max-width:540px;margin:0 0 32px;
 }
+.promise em{font-style:italic;color:var(--ink);font-weight:400}
 .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
 .retailers{display:flex;flex-wrap:wrap;align-items:center;gap:22px;opacity:.85}
 .retailers span{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-soft)}
@@ -378,10 +379,55 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 @media(max-width:760px){.questions ol{grid-template-columns:1fr;gap:0}}
 .questions li{
   counter-increment:q;
-  font-family:var(--serif-news);font-style:italic;
-  font-size:clamp(18px,1.8vw,21px);line-height:1.4;color:var(--ink);
+  font-family:var(--serif-news);font-style:normal;font-weight:450;
+  font-size:clamp(18px,1.65vw,20px);line-height:1.5;color:var(--ink);
   padding:18px 0;border-bottom:1px solid var(--rule-soft);
   position:relative;padding-left:60px;
+}
+.questions li em{font-style:italic;color:var(--oxblood);font-weight:500}
+@media(max-width:760px){.questions li{font-size:17.5px;padding-left:48px;line-height:1.45}}
+
+/* QUESTIONS MARQUEE — playbill ticker, "tonight's fourteen guests" */
+.q-marquee{
+  position:relative;padding:24px 0;overflow:hidden;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  background:linear-gradient(180deg,rgba(230,216,189,0.55),rgba(241,231,211,0.85));
+  z-index:2;
+}
+.q-marquee .qm-eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--oxblood);text-align:center;margin-bottom:14px;font-weight:600;
+}
+.q-marquee .qm-eyebrow em{font-style:italic;color:var(--gold);font-weight:500;letter-spacing:.18em;text-transform:none}
+.q-marquee-track{
+  display:flex;gap:54px;width:max-content;
+  animation:qscroll 110s linear infinite;will-change:transform;
+}
+.q-marquee:hover .q-marquee-track{animation-play-state:paused}
+.q-marquee .q{
+  font-family:var(--serif-news);font-style:italic;font-weight:400;
+  font-size:clamp(18px,1.6vw,22px);line-height:1;color:var(--ink);
+  white-space:nowrap;display:inline-flex;align-items:baseline;gap:14px;
+}
+.q-marquee .q .num{
+  font-family:var(--mono);font-style:normal;font-size:10.5px;letter-spacing:.22em;
+  color:var(--oxblood);font-weight:600;
+}
+.q-marquee .sep{color:var(--gold);font-size:14px;align-self:center;opacity:.7}
+.q-marquee::before,.q-marquee::after{
+  content:"";position:absolute;top:0;bottom:0;width:120px;pointer-events:none;z-index:3;
+}
+.q-marquee::before{left:0;background:linear-gradient(to right,var(--paper),rgba(241,231,211,0))}
+.q-marquee::after{right:0;background:linear-gradient(to left,var(--paper),rgba(241,231,211,0))}
+@keyframes qscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){
+  .q-marquee-track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;gap:24px 36px}
+  .q-marquee::before,.q-marquee::after{display:none}
+}
+@media(max-width:760px){
+  .q-marquee{padding:18px 0}
+  .q-marquee-track{animation-duration:80s;gap:42px}
+  .q-marquee .q{font-size:17px}
 }
 .questions li::before{
   content:counter(q,decimal-leading-zero);
@@ -395,10 +441,10 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .excerpt-block .meta{display:flex;flex-direction:column;gap:8px}
 .excerpt-block .meta .label{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--oxblood)}
 .excerpt-block .meta .sub{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-.excerpt-block .body{font-family:var(--serif-news);font-size:clamp(20px,2.2vw,24px);line-height:1.6;color:var(--ink);max-width:62ch;font-style:italic}
+.excerpt-block .body{font-family:var(--serif-news);font-weight:400;font-size:clamp(19px,2vw,22px);line-height:1.65;color:var(--ink);max-width:62ch;font-style:normal}
 .excerpt-block .body p{margin:0 0 20px}.excerpt-block .body p:last-child{margin:0}
 .excerpt-block .body strong{font-weight:500;font-style:normal;color:var(--oxblood)}
-.excerpt-block .body em{font-style:normal;color:var(--ink)}
+.excerpt-block .body em{font-style:italic;color:var(--ink)}
 .excerpt-block .body p:first-child::first-letter{font-family:var(--serif);font-weight:500;font-style:italic;font-size:5em;line-height:0.85;float:left;color:var(--oxblood);padding:8px 12px 0 0;margin-top:6px}
 
 /* COUNTDOWN STRIP */
@@ -588,6 +634,42 @@ footer{
         <div class="unit"><span class="v" data-k="m">--</span><span class="l">Min</span></div>
         <div class="unit"><span class="v" data-k="s">--</span><span class="l">Sec</span></div>
       </div>
+    </div>
+  </section>
+
+  <!-- FOURTEEN QUESTIONS — playbill marquee -->
+  <section class="q-marquee" aria-label="Tonight's fourteen questions">
+    <div class="qm-eyebrow">Tonight's <em>fourteen</em> questions · the spine of the night</div>
+    <div class="q-marquee-track" id="qMarqueeTrack" aria-hidden="false">
+      <span class="q"><span class="num">01</span>Will my kid have a job?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">02</span>Am I too late to learn this?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">03</span>What happens to the people I love who can't use it?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">04</span>Is this thing conscious? Does it matter if it isn't?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">05</span>What do I do with myself when I have nothing left to do?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">06</span>Will the gap between users and non-users break us?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">07</span>What about the people already broken by it?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">08</span>What actually gets better?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">09</span>Who decides, and what if they decide wrong?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">10</span>What do I tell a ten-year-old?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">11</span>What do I tell a seventy-year-old?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">12</span>What do I do today, this week, this month?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">13</span>What do I refuse to give up, no matter what comes?</span><span class="sep">✦</span>
+      <span class="q"><span class="num">14</span>What do I owe the ones coming after me?</span><span class="sep">✦</span>
+      <!-- duplicate for seamless loop -->
+      <span class="q" aria-hidden="true"><span class="num">01</span>Will my kid have a job?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">02</span>Am I too late to learn this?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">03</span>What happens to the people I love who can't use it?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">04</span>Is this thing conscious? Does it matter if it isn't?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">05</span>What do I do with myself when I have nothing left to do?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">06</span>Will the gap between users and non-users break us?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">07</span>What about the people already broken by it?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">08</span>What actually gets better?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">09</span>Who decides, and what if they decide wrong?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">10</span>What do I tell a ten-year-old?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">11</span>What do I tell a seventy-year-old?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">12</span>What do I do today, this week, this month?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">13</span>What do I refuse to give up, no matter what comes?</span><span class="sep" aria-hidden="true">✦</span>
+      <span class="q" aria-hidden="true"><span class="num">14</span>What do I owe the ones coming after me?</span><span class="sep" aria-hidden="true">✦</span>
     </div>
   </section>
 
