@@ -384,31 +384,19 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   padding:18px 0;border-bottom:1px solid var(--rule-soft);
   position:relative;padding-left:60px;
   transform-origin:left center;
-  transition:transform .65s cubic-bezier(.22,.7,.25,1);
+  transition:transform .55s cubic-bezier(.22,.7,.25,1);
   z-index:1;cursor:default;
 }
 .questions li:nth-child(even){transform-origin:right center}
 .questions li em{font-style:italic;color:var(--oxblood);font-weight:500}
-.questions li::after{
-  content:"";position:absolute;left:50px;top:50%;height:0.7em;width:0;
-  transform:translateY(-50%) skewX(-3deg);
-  background:linear-gradient(90deg, rgba(244,197,107,0.62) 0%, rgba(244,197,107,0.42) 80%, rgba(244,197,107,0) 100%);
-  mix-blend-mode:multiply;
-  z-index:-1;pointer-events:none;
-  transition:width .85s cubic-bezier(.4,0,.2,1) .12s;
-}
-.questions li:hover{transform:scale(1.25);z-index:5}
-.questions li:hover::after{width:calc(100% - 60px)}
+.questions li:hover{transform:scale(1.33);z-index:5}
 @media(max-width:760px){
   .questions li{font-size:17.5px;padding-left:48px;line-height:1.45}
-  .questions li::after{left:40px}
-  .questions li:hover{transform:scale(1.08)}
-  .questions li:hover::after{width:calc(100% - 48px)}
+  .questions li:hover{transform:scale(1.15)}
 }
 @media (prefers-reduced-motion:reduce){
-  .questions li,.questions li::after{transition:none}
+  .questions li{transition:none}
   .questions li:hover{transform:none}
-  .questions li:hover::after{width:calc(100% - 60px)}
 }
 
 /* QUESTIONS MARQUEE — playbill ticker, "tonight's fourteen guests" */
@@ -834,9 +822,7 @@ footer{
 
           <div class="other-books" aria-label="Also by Victor del Rosal">
             <span class="label">Also by</span>
-            <a href="https://www.amazon.com/Disruption-Emerging-Technologies-Future-Work/dp/1514173948" target="_blank" rel="noopener" aria-label="Disruption: Emerging Technologies and the Future of Work (2015) on Amazon">
-              <div class="mini-cover"><img src="disruption-cover.jpg" alt="Disruption: Emerging Technologies and the Future of Work"></div>
-            </a>
+            <div class="mini-cover"><img src="disruption-cover.jpg" alt="Disruption: Emerging Technologies and the Future of Work"></div>
             <div class="mini-cover"><img src="humanlike-cover.jpg" alt="Humanlike: The AI Transformation"></div>
           </div>
 
