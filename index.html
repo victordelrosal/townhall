@@ -375,7 +375,7 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
 .questions h2{font-family:var(--serif);font-weight:400;font-size:clamp(36px,4vw,56px);line-height:1.04;letter-spacing:-.015em;color:var(--ink);margin:0}
 .questions h2 em{font-style:italic;color:var(--ink-soft);font-weight:300}
 .q-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px}
-.questions ol{list-style:none;counter-reset:q;display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:48px;padding:0}
+.questions ol{list-style:none;counter-reset:q;display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:48px;padding:0;overflow:visible}
 @media(max-width:760px){.questions ol{grid-template-columns:1fr;gap:0}}
 .questions li{
   counter-increment:q;
@@ -383,9 +383,33 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   font-size:clamp(18px,1.65vw,20px);line-height:1.5;color:var(--ink);
   padding:18px 0;border-bottom:1px solid var(--rule-soft);
   position:relative;padding-left:60px;
+  transform-origin:left center;
+  transition:transform .65s cubic-bezier(.22,.7,.25,1);
+  z-index:1;cursor:default;
 }
+.questions li:nth-child(even){transform-origin:right center}
 .questions li em{font-style:italic;color:var(--oxblood);font-weight:500}
-@media(max-width:760px){.questions li{font-size:17.5px;padding-left:48px;line-height:1.45}}
+.questions li::after{
+  content:"";position:absolute;left:50px;top:50%;height:0.7em;width:0;
+  transform:translateY(-50%) skewX(-3deg);
+  background:linear-gradient(90deg, rgba(244,197,107,0.62) 0%, rgba(244,197,107,0.42) 80%, rgba(244,197,107,0) 100%);
+  mix-blend-mode:multiply;
+  z-index:-1;pointer-events:none;
+  transition:width .85s cubic-bezier(.4,0,.2,1) .12s;
+}
+.questions li:hover{transform:scale(1.25);z-index:5}
+.questions li:hover::after{width:calc(100% - 60px)}
+@media(max-width:760px){
+  .questions li{font-size:17.5px;padding-left:48px;line-height:1.45}
+  .questions li::after{left:40px}
+  .questions li:hover{transform:scale(1.08)}
+  .questions li:hover::after{width:calc(100% - 48px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .questions li,.questions li::after{transition:none}
+  .questions li:hover{transform:none}
+  .questions li:hover::after{width:calc(100% - 60px)}
+}
 
 /* QUESTIONS MARQUEE — playbill ticker, "tonight's fourteen guests" */
 .q-marquee{
