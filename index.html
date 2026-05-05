@@ -639,7 +639,6 @@ footer{
 
   <!-- FOURTEEN QUESTIONS — playbill marquee -->
   <section class="q-marquee" aria-label="Tonight's fourteen questions">
-    <div class="qm-eyebrow">Tonight's <em>fourteen</em> questions · the spine of the night</div>
     <div class="q-marquee-track" id="qMarqueeTrack" aria-hidden="false">
       <span class="q"><span class="num">01</span>Will my kid have a job?</span><span class="sep">✦</span>
       <span class="q"><span class="num">02</span>Am I too late to learn this?</span><span class="sep">✦</span>
@@ -969,7 +968,7 @@ footer{
 
 // Countdown
 (function(){
-  var target = new Date(Date.UTC(2026, 4, 8, 23, 0, 0)).getTime();
+  var target = new Date(Date.UTC(2026, 4, 19, 23, 0, 0)).getTime();
   var nodes = {};
   document.querySelectorAll('#clock .v').forEach(function(el){ nodes[el.dataset.k] = el; });
   function pad(n,w){ n = String(Math.max(0, n)); while(n.length<w) n='0'+n; return n; }
