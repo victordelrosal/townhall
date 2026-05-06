@@ -654,13 +654,13 @@ footer{
   border-top:1px solid var(--rule);padding:48px 0 60px;margin-top:40px;
   color:var(--ink-soft);font-size:13px;position:relative;z-index:2;
 }
-.foot-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
-.foot-grid .imprint{font-family:var(--serif);font-size:18px;color:var(--ink);margin-bottom:6px}
-.foot-grid .imprint em{font-style:italic;color:var(--oxblood)}
-.foot-grid .copy{font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
-.foot-grid .links{display:flex;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+.foot-grid{display:flex;justify-content:center;align-items:center;gap:18px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+.foot-grid .imprint{display:none}
+.foot-grid .copy{font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+.foot-grid .links{display:contents}
 .foot-grid .links a{color:var(--ink-soft);text-decoration:none}
 .foot-grid .links a:hover{color:var(--oxblood)}
+.foot-grid .links a::before{content:"·";margin-right:18px;color:var(--ink-soft);opacity:.45}
 
 /* PAGE-LOAD CHOREOGRAPHY */
 .reveal{opacity:0;transform:translateY(14px);animation:reveal 1.0s cubic-bezier(.2,.65,.2,1) forwards}
