@@ -548,6 +548,21 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   margin-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--ink-soft);
 }
+.author-note-full .close-row{
+  margin-top:36px;display:flex;justify-content:center;
+}
+.author-note-full .close-note{
+  background:none;border:1px solid var(--rule);
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);
+  padding:10px 18px;cursor:pointer;border-radius:2px;
+  transition:color .15s ease, border-color .15s ease;
+}
+.author-note-full .close-note:hover{color:var(--oxblood);border-color:var(--oxblood)}
+.author-note-full .close-note .x{
+  display:inline-block;margin-right:8px;font-family:var(--serif-news);
+  font-size:14px;letter-spacing:0;transform:translateY(1px);
+}
 
 /* COUNTDOWN STRIP */
 .countdown-strip{
@@ -777,6 +792,11 @@ footer{
         <p>Take one.</p>
       </div>
       <div class="signoff">— Victor del Rosal</div>
+      <div class="close-row">
+        <button type="button" class="close-note" id="note-close" aria-controls="author-note">
+          <span class="x" aria-hidden="true">×</span>Close note
+        </button>
+      </div>
     </div>
   </section>
 
@@ -1315,23 +1335,35 @@ footer{
   (function(){
     var toggle=document.getElementById('note-toggle');
     var note=document.getElementById('author-note');
+    var closeBtn=document.getElementById('note-close');
     if(!toggle||!note)return;
-    toggle.addEventListener('click',function(e){
-      e.preventDefault();
-      var open=!note.hasAttribute('hidden');
+    function setOpen(open){
       if(open){
-        note.setAttribute('hidden','');
-        toggle.textContent='Show full note ↓';
-        toggle.setAttribute('aria-expanded','false');
-      }else{
         note.removeAttribute('hidden');
         toggle.textContent='Hide full note ↑';
         toggle.setAttribute('aria-expanded','true');
+      }else{
+        note.setAttribute('hidden','');
+        toggle.textContent='Show full note ↓';
+        toggle.setAttribute('aria-expanded','false');
+      }
+    }
+    toggle.addEventListener('click',function(e){
+      e.preventDefault();
+      var willOpen=note.hasAttribute('hidden');
+      setOpen(willOpen);
+      if(willOpen){
         requestAnimationFrame(function(){
           note.scrollIntoView({behavior:'smooth',block:'start'});
         });
       }
     });
+    if(closeBtn){
+      closeBtn.addEventListener('click',function(){
+        setOpen(false);
+        toggle.scrollIntoView({behavior:'smooth',block:'center'});
+      });
+    }
   })();
 </script>
 </body>
