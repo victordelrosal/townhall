@@ -513,6 +513,7 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   padding:56px 0 64px;
   position:relative;z-index:2;
 }
+.author-note-full[hidden]{display:none}
 .author-note-full .wrap{
   max-width:760px;margin:0 auto;padding:0 28px;
 }
@@ -740,13 +741,13 @@ footer{
       <span class="tag">A note from the author</span>
       <p>
         Most of you know I've spent the last few years living inside the AI machine. Teaching it. Writing about it. Building with it. Breaking it. Trying to make sense of it. From the first ChatGPT moment to today's frontier models and Claude Code, I've watched AI shift shape: tool, advisor, assistant, digital colleague, something that now does real work alongside us.
-        <a href="#author-note">Read on ↓</a>
+        <a href="#author-note" id="note-toggle" role="button" aria-controls="author-note" aria-expanded="false">Show full note ↓</a>
       </p>
     </div>
   </section>
 
   <!-- AUTHOR'S NOTE — full body -->
-  <section id="author-note" class="author-note-full" aria-label="The full note from the author">
+  <section id="author-note" class="author-note-full" aria-label="The full note from the author" hidden>
     <div class="wrap">
       <div class="kicker">The note continues</div>
       <p>In one sense the change has been gradual. In another, it's been absurdly fast.</p>
@@ -1310,5 +1311,28 @@ footer{
 })();
 </script>
 
+<script>
+  (function(){
+    var toggle=document.getElementById('note-toggle');
+    var note=document.getElementById('author-note');
+    if(!toggle||!note)return;
+    toggle.addEventListener('click',function(e){
+      e.preventDefault();
+      var open=!note.hasAttribute('hidden');
+      if(open){
+        note.setAttribute('hidden','');
+        toggle.textContent='Show full note ↓';
+        toggle.setAttribute('aria-expanded','false');
+      }else{
+        note.removeAttribute('hidden');
+        toggle.textContent='Hide full note ↑';
+        toggle.setAttribute('aria-expanded','true');
+        requestAnimationFrame(function(){
+          note.scrollIntoView({behavior:'smooth',block:'start'});
+        });
+      }
+    });
+  })();
+</script>
 </body>
 </html>
