@@ -506,6 +506,48 @@ h1.title .qmark{font-style:italic;color:var(--gold);font-weight:300}
   .nano-note .tag{padding-top:0}
 }
 
+/* AUTHOR'S NOTE — full body below the ribbon */
+.author-note-full{
+  background:var(--paper);
+  border-bottom:1px solid var(--rule);
+  padding:56px 0 64px;
+  position:relative;z-index:2;
+}
+.author-note-full .wrap{
+  max-width:760px;margin:0 auto;padding:0 28px;
+}
+.author-note-full .kicker{
+  font-family:var(--mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--oxblood);font-weight:600;margin-bottom:18px;
+}
+.author-note-full p{
+  margin:0 0 18px;
+  font-family:var(--serif-news);font-weight:400;
+  font-size:clamp(17px,1.35vw,19px);line-height:1.65;color:var(--ink);
+}
+.author-note-full .questions{
+  margin:8px 0 22px;padding:18px 0 18px 22px;
+  border-left:2px solid var(--oxblood);
+  font-family:var(--serif-news);font-style:italic;color:var(--ink-soft);
+  font-size:clamp(16px,1.25vw,18px);line-height:1.6;
+}
+.author-note-full .questions p{margin:0 0 8px;font-style:italic}
+.author-note-full .questions p:last-child{margin:0}
+.author-note-full .lift{
+  font-family:var(--serif-news);font-style:italic;color:var(--oxblood);
+  font-size:clamp(18px,1.4vw,20px);
+  margin:14px 0 22px;
+}
+.author-note-full .closer{
+  margin-top:28px;padding-top:22px;border-top:1px solid var(--rule);
+  font-family:var(--serif-news);font-style:italic;color:var(--ink);
+  font-size:clamp(17px,1.3vw,19px);line-height:1.55;
+}
+.author-note-full .signoff{
+  margin-top:16px;font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-soft);
+}
+
 /* COUNTDOWN STRIP */
 .countdown-strip{
   background:var(--ink);color:var(--paper);padding:36px 0;
@@ -697,9 +739,43 @@ footer{
     <div class="inner">
       <span class="tag">A note from the author</span>
       <p>
-        <em>Townhall</em> was drafted in dialogue with <strong>Claudus</strong>, an AI collaboration I have been developing for the past year. I conceived, directed, and edited the book; Claudus drafted alongside me, under my final judgement throughout. A book about how to think about AI should be open about how it was made.
-        <a href="#methods">Read the full note ↓</a>
+        Most of you know I've spent the last few years living inside the AI machine. Teaching it. Writing about it. Building with it. Breaking it. Trying to make sense of it. From the first ChatGPT moment to today's frontier models and Claude Code, I've watched AI shift shape: tool, advisor, assistant, digital colleague, something that now does real work alongside us.
+        <a href="#author-note">Read on ↓</a>
       </p>
+    </div>
+  </section>
+
+  <!-- AUTHOR'S NOTE — full body -->
+  <section id="author-note" class="author-note-full" aria-label="The full note from the author">
+    <div class="wrap">
+      <div class="kicker">The note continues</div>
+      <p>In one sense the change has been gradual. In another, it's been absurdly fast.</p>
+      <p>And to say it raises ethical, social, economic, educational and deeply human questions is probably the understatement of our era.</p>
+      <p>So I kept circling back to a handful of questions I couldn't put down.</p>
+      <div class="questions" aria-label="The questions I kept circling back to">
+        <p>Will my children have jobs?</p>
+        <p>What happens to people who can't use this technology?</p>
+        <p>Who is accountable when an AI system causes harm?</p>
+        <p>What happens to education when every student has a tireless digital tutor?</p>
+        <p>Can we build AI in a way that strengthens human dignity instead of quietly replacing it?</p>
+      </div>
+      <p>These aren't questions you answer with a product demo, a policy memo, or a LinkedIn hot take.</p>
+      <p>They need conversation.</p>
+      <p>So I started experimenting.</p>
+      <p>At first I built personas to help me think: experts, workers, parents, students, sceptics, optimists, technologists, citizens. I wasn't chasing what to think about AI. I wanted to understand how to think about it.</p>
+      <p>Then something I didn't plan for happened.</p>
+      <p class="lift">The personas became voices. The voices became characters. The characters eventually became a novel.</p>
+      <p>I'm calling it <em>Town Hall</em>.</p>
+      <p>The name matters to me. This is where these conversations belong, out in the open. Not only in boardrooms, labs, conferences, classrooms or government committees, but in the civic space where ordinary people get to ask hard questions honestly.</p>
+      <p>The book is written as a public conversation about AI and the future of work, education, family, responsibility, trust, and the society we're handing to our kids.</p>
+      <p>It's not meant to settle the debate. It's meant to start one.</p>
+      <p>My hope is that it helps readers sit with these questions, see them from angles they hadn't considered, and maybe imagine better ways forward, for themselves and for the rest of us.</p>
+      <div class="closer">
+        <p>The first seats in the Town Hall are open.</p>
+        <p>A few are left.</p>
+        <p>Take one.</p>
+      </div>
+      <div class="signoff">— Victor del Rosal</div>
     </div>
   </section>
 
